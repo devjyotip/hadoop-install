@@ -4,15 +4,15 @@
 <!-- Put site-specific property overrides in this file. -->
 
 <configuration>
-property>
+   <property>
         <name>dfs.datanode.data.dir</name>
-        <value>file:///home/hadoop/hdfs/</value>
+        <value>file:/home/hduser/mydata/hdfs/datanode</value>
         <description>DataNode directory for storing data chunks.</description>
     </property>
 
     <property>
         <name>dfs.namenode.name.dir</name>
-        <value>file:///home/hadoop/hdfs/</value>
+        <value>file:/home/hduser/mydata/hdfs/namenode</value>
         <description>NameNode directory for namespace and transaction logs storage.</description>
     </property>
 
