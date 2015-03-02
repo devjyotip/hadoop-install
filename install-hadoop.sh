@@ -1,5 +1,5 @@
 cd ~ 
-sudo apt-get update
+#sudo apt-get update
 
 # Download java jdk
 sudo apt-get install openjdk-7-jdk
@@ -49,34 +49,41 @@ cd /usr/local/hadoop/etc/hadoop
 sudo -u hduser sed -i.bak s=\${JAVA_HOME}=/usr/lib/jvm/jdk/=g hadoop-env.sh
 pwd
 
-
 # Get configuration files
-rm -rf core-site.xml
+sudo rm -rf core-site.xml
 sudo wget https://raw.githubusercontent.com/devjyotip/hadoop-install/master/core-site.xml
-rm -rf mapred-site.xml
-sudo wget https://github.com/devjyotip/hadoop-install/blob/master/mapred-site.xml
-rm -rf hdfs-site.xml
+sudo rm -rf mapred-site.xml
+sudo wget https://raw.githubusercontent.com/devjyotip/hadoop-install/master/mapred-site.xml
+sudo rm -rf hdfs-site.xml
 sudo wget https://raw.githubusercontent.com/devjyotip/hadoop-install/master/hdfs-site.xml
  
 cd ~
+sudo rm -rf mydata/hdfs/namenode
+sudo rm -rf mydata/hdfs/datanode
 sudo mkdir -p mydata/hdfs/namenode
 sudo mkdir -p mydata/hdfs/datanode
-sudo chown -R hduser:hadoop mydata/hdfs
-sudo chmod -R 777 mydata/hdfs
+#sudo chmod -R 777 mydata
+#sudo chown -R hduser:hadoop mydata
 
+cd /usr/local/hadoop/etc/hadoop
 
 # Format Namenode
-sudo -u hduser /usr/local/hadoop/bin/hdfs namenode -format
+#sudo -u hduser /usr/local/hadoop/bin/hdfs namenode -format
+sudo sh -c '/usr/local/hadoop/bin/hdfs namenode -format'
 
 # Start Hadoop Service
-sudo -u hduser /usr/local/hadoop/sbin/start-all.sh
-#sudo -u hduser /usr/local/hadoop/sbin/start-dfs.sh
-#sudo -u hduser /usr/local/hadoop/sbin/start-yarn.sh
+sudo -u hduser /usr/local/hadoop/sbin/stop-dfs.sh
+sudo -u hduser /usr/local/hadoop/sbin/stop-yarn.sh
+sudo -u hduser /usr/local/hadoop/sbin/start-dfs.sh
+sudo -u hduser /usr/local/hadoop/sbin/start-yarn.sh
+#sudo -u hduser /usr/local/hadoop/sbin/hadoop-daemon.sh  start namenode
+#sudo -u hduser /usr/local/hadoop/sbin/hadoop-daemon.sh  start datanode
+#sudo -u hduser /usr/local/hadoop/sbin/hadoop-daemon.sh  start jobtracker
+#sudo -u hduser /usr/local/hadoop/sbin/hadoop-daemon.sh  start tasktracker
 
 # Check status
 sudo -u hduser jps
 
 # Example
-sudo -u hduser cd /usr/local/hadoop
-sudo -u hduser /usr/local/hadoop/bin/hadoop jar ./usr/local/hadoop/share/hadoop/mapreduce/hadoop-mapreduce-examples-2.2.0.jar pi 2 5
+sudo -u hduser /usr/local/hadoop/bin/hadoop jar /usr/local/hadoop/share/hadoop/mapreduce/hadoop-mapreduce-examples-2.2.0.jar pi 2 5
 
