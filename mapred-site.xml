@@ -5,7 +5,7 @@
 
   <property>
   <name>mapred.job.tracker</name>
-  <value>${local.jobtracker}:50300</value>
+  <value>localhost:50300</value>
   <final>true</final>
   </property>
 
@@ -54,12 +54,6 @@ may be executed in parallel.</description>
 <name>mapred.child.java.opts</name>
 <value>-server -Xmx640m -Djava.net.preferIPv4Stack=true</value>
 </property>
-
-<property>
-<name>mapred.child.ulimit</name>
-<value>8388608</value>
-</property>
-
 
 <property>
 <name>mapred.jobtracker.maxtasks.per.job</name>
